@@ -1,0 +1,23 @@
+{
+  "name": "get-jobs-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theJoseNeto/get-jobs-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theJoseNeto/get-jobs-bot/issues"
+  },
+  "homepage": "https://github.com/theJoseNeto/get-jobs-bot#readme",
+  "dependencies": {
+    "puppeteer": "^15.1.1"
+  }
+}
