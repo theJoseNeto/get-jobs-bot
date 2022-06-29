@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/theJoseNeto/get-jobs-bot#readme",
   "dependencies": {
+    "discord.js": "^13.8.1",
     "puppeteer": "^15.1.1"
   }
 }
