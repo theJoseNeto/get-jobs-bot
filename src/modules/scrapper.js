@@ -63,7 +63,8 @@ class Scrapper {
 
 
 }
-const scrp = new Scrapper();
 
+const scrp = new Scrapper();
+scrp.scrapper("nodejs", "berlim").then(res => console.log(res));
 
 module.exports = Scrapper;

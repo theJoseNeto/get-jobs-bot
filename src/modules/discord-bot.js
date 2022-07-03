@@ -1,0 +1,6 @@
+
+exports.bot = (client , member)=> {
+
+
+    
+}
