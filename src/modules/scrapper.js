@@ -1,5 +1,4 @@
 const puppeteer = require("puppeteer");
-const formatMessage = require("./formatmessage");
 
 class Scrapper {
 
@@ -11,7 +10,7 @@ class Scrapper {
     scrapper = async (job, locale) => {
 
         return new Promise(async (resolve, reject) => {
-            await this.launchBrowser(false); //parameter: headless mode - true or false;
+            await this.launchBrowser(false); //parameter: "headless mode" - true or false; WARNING: use headless = true; in development!
             await this.gotoPage("https://www.linkedin.com/jobs/");
             await this.searchJobs(job, locale);
             await this.getListJobs()
@@ -24,7 +23,7 @@ class Scrapper {
     launchBrowser = async (headless) => {
 
         this.browser = await puppeteer.launch({
-            headless: headless,
+            headless: false,
         });
     }
 
@@ -34,6 +33,7 @@ class Scrapper {
     }
 
     searchJobs = async (job, locale) => {
+        
         await this.page.waitForSelector('.dismissable-input__input')
             .then(async () => {
                 //job
@@ -45,10 +45,13 @@ class Scrapper {
                 await this.page.keyboard.press("Enter");
 
             }).catch(async ()=>{
+
                 await this.browser.close();                
                 await this.scrapper(job, locale);
+
             });
     }
+
 
     getListJobs = async () => {
         return new Promise(async (resolve, reject) => {
@@ -66,6 +69,7 @@ class Scrapper {
             });
         });
 
+    
     }
 
 

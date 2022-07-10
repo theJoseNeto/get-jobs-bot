@@ -1,23 +1,22 @@
-const formatMessage = require("./formatmessage");
+const { fomatMessage } = require("./formatmessage");
 const Scrapper = require("./scrapper");
-exports.botActions = async (client, message)=> {
 
+exports.botActions = async (client, discordMessage) => {
+    const web = new Scrapper();
     const discordServer = client.guilds.cache.get(process.env.DISCORD_SERVER_ID);
-        const channel = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
-        const contentMessage = message.content;
+    const channel = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
+    const contentMessage = discordMessage.content;
 
+    const formatedMesage = fomatMessage(contentMessage);
 
-        if(contentMessage == "/vaga" || contentMessage == "/Vaga"){
-            console.log("Procurando vagas...")
-            //const formatedMessage = formatMessage(message);
-            const web = new Scrapper();
-            web.scrapper("nodejs Junior", "Recife")
-                .then(res => {
-                    console.log(res);
-                    message.reply(res)
-                
-                });
-        } 
-    
+    if(formatedMesage.status == true) {
+        const {content : res} = formatedMesage
+        const searchForThis = `${res.job} ${res.level}`
+        const inThisLocale = res.locale; 
+        web.scrapper(searchForThis, inThisLocale)
+            .then (data => {
+                const formatedMessage = data.join().replace(",", "\n\n");
+                discordMessage.reply(formatedMesage);
+            }); 
+     } 
 }
-
