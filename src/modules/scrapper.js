@@ -10,7 +10,7 @@ class Scrapper {
     scrapper = async (job, locale) => {
 
         return new Promise(async (resolve, reject) => {
-            await this.launchBrowser(false); //parameter: "headless mode" - true or false; WARNING: use headless = true; in development!
+            await this.launchBrowser(); //parameter: "headless mode" - true or false; WARNING: use headless = true; in development!
             await this.gotoPage("https://www.linkedin.com/jobs/");
             await this.searchJobs(job, locale);
             await this.getListJobs()
@@ -20,7 +20,7 @@ class Scrapper {
 
     }
 
-    launchBrowser = async (headless) => {
+    launchBrowser = async () => {
 
         this.browser = await puppeteer.launch({
             headless: false,
@@ -45,10 +45,8 @@ class Scrapper {
                 await this.page.keyboard.press("Enter");
 
             }).catch(async ()=>{
-
                 await this.browser.close();                
                 await this.scrapper(job, locale);
-
             });
     }
 

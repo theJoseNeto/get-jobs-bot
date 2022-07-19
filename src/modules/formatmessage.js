@@ -78,17 +78,19 @@ exports.fomatMessage = (message = String) => { // expected message --> @Getulio 
         errorMessage: 'Parece que você solicitou sua vaga de forma incorreta. Siga o modelo de mensagem a seguir e tente novamente: "@Getulio vagas, nodejs, sênior, PE" '
     }
 
-    const splitedMessage = message.split(" ");
-    
+    const splitedMessage = message.split(",");
+
     const botMention = splitedMessage[0];
-    const desiredTechnology = splitedMessage[2];
-    const programmerLevel = splitedMessage[3];
-    const locale = splitedMessage[4];
+    const desiredTechnology = splitedMessage[1];
+    const programmerLevel = splitedMessage[2];
+    const locale = splitedMessage[3].replace(" ", "");
 
     const isValidLocale = checkListOfBrazilianStates(locale); 
-    const isValidTech = checkListOfTechnologies(desiredTechnology);
-    const isValidProgrammerLevel = checkProgrammerLevel(programmerLevel);
-    const isBotMention = process.env.BOT_CODE_MENTION === botMention;
+    const isValidTech = checkListOfTechnologies(desiredTechnology); 
+    const isValidProgrammerLevel = checkProgrammerLevel(programmerLevel); 
+    const isBotMention = process.env.BOT_CODE_MENTION === botMention; 
+
+    
 
     if(isValidLocale && isValidTech && isValidProgrammerLevel && isBotMention){
 
