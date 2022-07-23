@@ -33,7 +33,7 @@ class Scrapper {
     launchBrowser = async () => {
 
         this.browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
         });
     }
 
