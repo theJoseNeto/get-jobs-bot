@@ -10,7 +10,7 @@ const token = process.env.TOKEN;
 const { botActions } = require('./src/modules/discord-bot');
 
 app.get('/', (req, res) => {
-    res.send("<p>Essa aplicação só pode ser acessada em <a href='https://discord.gg/wRu4bewKFD'></a></p> <br/> <p><a href='https://minhastack.slcn.app'>MinhaStack</a></p>")
+    res.send("<p>Essa aplicação só pode ser acessada no nosso <a href='https://discord.gg/wRu4bewKFD'>discord</a></p> <br/> <p><a href='https://minhastack.slcn.app'>MinhaStack</a></p>")
 });
 
 
