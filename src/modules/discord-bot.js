@@ -1,3 +1,4 @@
+// require('dotenv').config();
 const { fomatMessage } = require("./formatmessage");
 const Scrapper = require("./scrapper");
 

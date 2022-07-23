@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deployment-mode": "node deploy.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/theJoseNeto/get-jobs-bot#readme",
   "dependencies": {
     "discord.js": "^13.8.1",
+    "express": "^4.18.1",
     "puppeteer": "^15.1.1"
   },
   "devDependencies": {
