@@ -10,14 +10,24 @@ class Scrapper {
     scrapper = async (job, locale) => {
 
         return new Promise(async (resolve, reject) => {
-            await this.launchBrowser(); //parameter: "headless mode" - true or false; WARNING: use headless = true; in development!
+            await this.launchBrowser();
             await this.gotoPage("https://www.linkedin.com/jobs/");
-            await this.searchJobs(job, locale);
+            await this.searchJobs(job, locale)
             await this.getListJobs()
                 .then(results => resolve(results))
-                .finally(() => this.browser.close());
-        });
+                .catch(e => {
+                    let attempts = 0;
+                    if (attempts == 3) {
+                        resolve("Estamos enfrentando alguns problemas para encontrar sua vaga");
+                        attempts += 1;
+                    }
+                    else this.scrapper(job, locale);
+                    // TODO: add func to send error message to channel "bot errors";
+                })
 
+                .finally(() => this.browser.close());
+
+            });
     }
 
     launchBrowser = async () => {
@@ -33,7 +43,7 @@ class Scrapper {
     }
 
     searchJobs = async (job, locale) => {
-        
+
         await this.page.waitForSelector('.dismissable-input__input')
             .then(async () => {
                 //job
@@ -44,8 +54,8 @@ class Scrapper {
                 await this.page.type('input[name="location"]', locale, { delay: 200 });
                 await this.page.keyboard.press("Enter");
 
-            }).catch(async ()=>{
-                await this.browser.close();                
+            }).catch(async () => {
+                await this.browser.close();
                 await this.scrapper(job, locale);
             });
     }
@@ -66,11 +76,17 @@ class Scrapper {
                 }
             });
         });
-
-    
     }
 
-
+    // redirectToSearchPage = async (jobNameValue, JobLocaleValue) => {
+    //     await this.page.waitForSelector(".authwall-join-form__title").then(
+    //         async elem => {
+    //             if (elem) {
+    //                 await this.scrapper()
+    //             }
+    //         }
+    //     );
+    // }
 }
 
 module.exports = Scrapper;

@@ -2,8 +2,8 @@ require('dotenv').config();
 
 const checkListOfTechnologies = tech => {
 
-    let isValidTech;
-    const technologiesList = ["javascript", "nodejs", "React", "python", "java", "php", "c#", "c++", "typeScript", "ruby", "c", "swift", "r", "objective-c", "shell", "scala", "go", "powerShell", "kotlin", "rust", "perl", "dart"]
+    let isValidTech = false;
+    const technologiesList = ["javascript", "nodejs", "React", "python", "java", "php", "c#", "c++", "typeScript", "ruby", "Ruby","c", "swift", "r", "objective-c", "shell", "scala", "go", "powerShell", "kotlin", "rust", "perl", "dart"]
 
     for (let itemListOfTechs of technologiesList) {
         if(itemListOfTechs === tech) {
@@ -15,15 +15,19 @@ const checkListOfTechnologies = tech => {
 }
 
 const checkProgrammerLevel =  level =>{
-    let isValidLevel = false;
-    const levels = ["junior", "pleno", "senior"]; 
-    for(lvl in levels){
-        if(lvl == level){
-            isValidLevel = true;
-            break; 
+    
+    let isValidProgrammerLevel = false;
+    const levels = ["Junior", "Pleno", "Senior", "junior", "pleno", "senior", "jr", "pl", "sr", "JR", "PL", "SR", "Jr", "Pl", "Sr"]; 
+
+    for(lvl of levels){
+        if(lvl === level){
+            isValidProgrammerLevel = true;
+            break;
         }
     }
-    return isValidLevel;
+
+    return isValidProgrammerLevel;
+
 }
 
 const checkListOfBrazilianStates = (UF = "Brasil")=> { 
@@ -75,28 +79,26 @@ exports.fomatMessage = (message = String) => { // expected message --> @Getulio 
     let formatedMessage = {
         content: { job: undefined, level: undefined, locale: undefined },
         status: false,
-        errorMessage: 'Parece que você solicitou sua vaga de forma incorreta. Siga o modelo de mensagem a seguir e tente novamente: "@Getulio vagas, nodejs, sênior, PE" '
+        errorMessage: 'Parece que você solicitou sua vaga de forma incorreta. Siga o modelo de mensagem a seguir e tente novamente: "/Solicitar, nodejs, sênior, PE" '
     }
 
     const splitedMessage = message.split(",");
 
-    const botMention = splitedMessage[0];
-    const desiredTechnology = splitedMessage[1];
-    const programmerLevel = splitedMessage[2];
-    const locale = splitedMessage[3].replace(" ", "");
+    const botMention = splitedMessage[0].trim(); 
+    const desiredTechnology = splitedMessage[1].trim();
+    const programmerLevel = splitedMessage[2].trim();
+    const locale = splitedMessage[3].trim();
 
     const isValidLocale = checkListOfBrazilianStates(locale); 
     const isValidTech = checkListOfTechnologies(desiredTechnology); 
     const isValidProgrammerLevel = checkProgrammerLevel(programmerLevel); 
-    const isBotMention = process.env.BOT_CODE_MENTION === botMention; 
+    const isBotMention = botMention === "/Solicitar"; 
 
-    
-
-    if(isValidLocale && isValidTech && isValidProgrammerLevel && isBotMention){
+    if(isValidLocale.status && isValidTech && isValidProgrammerLevel && isBotMention){
 
         formatedMessage.content.job = desiredTechnology; 
         formatedMessage.content.level = programmerLevel; 
-        formatedMessage.content.locale = locale;
+        formatedMessage.content.locale = isValidLocale.state;
         formatedMessage.status = true;
         formatedMessage.errorMessage = ""; 
 
