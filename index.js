@@ -1,6 +1,4 @@
-// require('dotenv').config();
-
-const app = require("express")();
+require('dotenv').config();
 
 const { Client, Intents } = require("discord.js");
 
@@ -14,11 +12,8 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(process.env.PORT || 8080, () => {
-
     client.login(token).then(() => {
         client.on("messageCreate", (message) => botActions(client, message));
         client.on("ready", () => console.log('client is ready!'));
     });
 
-});

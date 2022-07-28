@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 
 const checkListOfTechnologies = tech => {
 
@@ -75,7 +75,7 @@ const checkListOfBrazilianStates = (UF = "Brasil")=> {
     return isvalidState;
 }
 
-exports.fomatMessage = (message = String) => { // expected message --> @Getulio vagas, nodejs, sênior, PE
+exports.fomatMessage = (message = String) => { // expected message --> /Solicitar, nodejs, sênior, PE
     let formatedMessage = {
         content: { job: undefined, level: undefined, locale: undefined },
         status: false,
