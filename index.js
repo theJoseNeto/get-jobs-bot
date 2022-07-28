@@ -4,7 +4,10 @@ const { Client, Intents } = require("discord.js");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const token = process.env.TOKEN;
+setInterval(() => {
+    console.log('working...')}, 2500);
 
+    
 const { botActions } = require('./src/modules/discord-bot');
 
     client.login(token).then(() => {
