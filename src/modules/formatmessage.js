@@ -3,7 +3,7 @@
 const checkListOfTechnologies = tech => {
 
     let isValidTech = false;
-    const technologiesList = ["javascript", "nodejs", "React", "python", "java", "php", "c#", "c++", "typeScript", "ruby", "Ruby","c", "swift", "r", "objective-c", "shell", "scala", "go", "powerShell", "kotlin", "rust", "perl", "dart"]
+    const technologiesList = ["javascript", "nodejs", "react", "python", "java", "php", "c#", "c++", "typeScript", "ruby","c", "swift", "r", "objective-c", "shell", "scala", "go", "powerShell", "kotlin", "rust", "perl", "dart"]
 
     for (let itemListOfTechs of technologiesList) {
         if(itemListOfTechs === tech) {
@@ -32,9 +32,10 @@ const checkProgrammerLevel =  level =>{
 
 const checkListOfBrazilianStates = (UF = "Brasil")=> { 
     let isvalidState = {state: "", status: false}
-
+    
     const states = [
-
+        
+        { 'RM': 'Remoto' },
         { 'AC': 'Acre' },
         { 'AL': 'Alagoas' },
         { 'AP': 'Amapá' },

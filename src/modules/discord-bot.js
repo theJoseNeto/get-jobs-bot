@@ -18,10 +18,8 @@ exports.botActions = async (client, discordMessage) => {
 
         web.scrapper(searchForThis, inThisLocale)
             .then (data => {
-
                 const newMessage = data.join().replace(",", "\n\n");
                 discordMessage.reply(newMessage);
-                
             }); 
      } 
 }
