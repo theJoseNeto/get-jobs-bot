@@ -76,14 +76,14 @@ const checkListOfBrazilianStates = (UF = "Brasil")=> {
     return isvalidState;
 }
 
-exports.fomatMessage = (message = String) => { // expected message --> /Solicitar, nodejs, sênior, PE
+exports.fomatMessage = (message) => { // expected message --> /Solicitar, nodejs, Junior, PE
     let formatedMessage = {
         content: { job: undefined, level: undefined, locale: undefined },
         status: false,
         errorMessage: 'Parece que você solicitou sua vaga de forma incorreta. Siga o modelo de mensagem a seguir e tente novamente: "/Solicitar, nodejs, sênior, PE" '
     }
 
-    const splitedMessage = message.split(",");
+    const splitedMessage = message.split(","); // ["/Solicitar", "javascript", "Junior", "PE"] 
 
     const botMention = splitedMessage[0].trim(); 
     const desiredTechnology = splitedMessage[1].trim();
@@ -94,15 +94,15 @@ exports.fomatMessage = (message = String) => { // expected message --> /Solicita
     const isValidTech = checkListOfTechnologies(desiredTechnology); 
     const isValidProgrammerLevel = checkProgrammerLevel(programmerLevel); 
     const isBotMention = botMention === "/Solicitar"; 
-
-    if(isValidLocale.status && isValidTech && isValidProgrammerLevel && isBotMention){
-
+    
+    const allRight = isValidLocale.status && isValidTech && isValidProgrammerLevel && isBotMention;
+    
+    if(allRight){
         formatedMessage.content.job = desiredTechnology; 
         formatedMessage.content.level = programmerLevel; 
         formatedMessage.content.locale = isValidLocale.state;
         formatedMessage.status = true;
         formatedMessage.errorMessage = ""; 
-
     }
 
     return formatedMessage;

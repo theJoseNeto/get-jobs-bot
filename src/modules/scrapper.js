@@ -15,16 +15,6 @@ class Scrapper {
             await this.searchJobs(job, locale)
             await this.getListJobs()
                 .then(results => resolve(results))
-                .catch(e => {
-                    let attempts = 0;
-                    if (attempts == 3) {
-                        resolve("Estamos enfrentando alguns problemas para encontrar sua vaga");
-                        attempts += 1;
-                    }
-                    else this.scrapper(job, locale);
-                    // TODO: add func to send error message to channel "bot errors";
-                })
-
                 .finally(() => this.browser.close());
 
             });
@@ -33,7 +23,7 @@ class Scrapper {
     launchBrowser = async () => {
 
         this.browser = await puppeteer.launch({
-            executablePath: "~/usr/bin/chromium-browser",
+            // executablePath: "~/usr/bin/chromium-browser",
             headless: true,
             args: ['--no-sandbox','--disable-setuid-sandbox']
         });
