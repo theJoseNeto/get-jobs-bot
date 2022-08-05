@@ -26,7 +26,7 @@ class Scrapper {
     launchBrowser = async () => {
 
         this.browser = await puppeteer.launch({
-            // executablePath: "~/usr/bin/chromium-browser",
+            executablePath: "../../../../../../usr/bin/chromium-browser",
             headless: true, // false to development mode
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
