@@ -76,19 +76,29 @@ const checkListOfBrazilianStates = (UF = "Brasil")=> {
     return isvalidState;
 }
 
+const RemoveWhiteSpaces = arrStr => {
+    const noWhiteSpacesArr = []
+    for(let arrItem of arrStr){
+        noWhiteSpacesArr.push(arrItem.trim());
+    }
+
+    return noWhiteSpacesArr;
+
+}
+
 exports.fomatMessage = (message) => { // expected message --> /Solicitar, nodejs, Junior, PE
     let formatedMessage = {
         content: { job: undefined, level: undefined, locale: undefined },
         status: false,
         errorMessage: 'Parece que você solicitou sua vaga de forma incorreta. Siga o modelo de mensagem a seguir e tente novamente: "/Solicitar, nodejs, sênior, PE" '
     }
-
-    const splitedMessage = message.split(","); // ["/Solicitar", "javascript", "Junior", "PE"] 
-
-    const botMention = splitedMessage[0].trim(); 
-    const desiredTechnology = splitedMessage[1].trim();
-    const programmerLevel = splitedMessage[2].trim();
-    const locale = splitedMessage[3].trim();
+    const messageComands = message.split(",");// ["/Solicitar", "javascript", "Junior", "PE"] 
+    const splitedMessage = RemoveWhiteSpaces(messageComands); 
+    
+    const botMention = splitedMessage[0];
+    const desiredTechnology = splitedMessage[1];
+    const programmerLevel = splitedMessage[2];
+    const locale = splitedMessage[3];
 
     const isValidLocale = checkListOfBrazilianStates(locale); 
     const isValidTech = checkListOfTechnologies(desiredTechnology); 

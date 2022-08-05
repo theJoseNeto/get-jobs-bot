@@ -12,25 +12,26 @@ exports.botActions = async (client, discordMessage) => {
     const discordServer = client.guilds.cache.get(process.env.DISCORD_SERVER_ID);
     const channel = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
-    const contentMessage = discordMessage.content;
-    const formatedMesage = fomatMessage(contentMessage); // 
+    if (discordMessage.guild == discordServer) {
 
-    if (formatedMesage.status == true) {
+        const contentMessage = discordMessage.content;
+        const formatedMesage = fomatMessage(contentMessage); // 
 
-        const { content: res } = formatedMesage;
-        const searchForThis = `${res.job} ${res.level}`;
-        const inThisLocale = res.locale;
+        if (formatedMesage.status == true) {
 
-        web.scrapper(searchForThis, inThisLocale)
-            .then(async LinksToJobs => {
+            const { content: res } = formatedMesage;
+            const searchForThis = `${res.job} ${res.level}`;
+            const inThisLocale = res.locale;
 
-                await injectLinksIntoEmbedMessages(LinksToJobs)
-                    .then(embed => {
-                        channel.send({ embeds: [embed] });
+            web.scrapper(searchForThis, inThisLocale)
+                .then(async LinksToJobs => { //[{title, url}]
+
+                    await injectLinksIntoEmbedMessages(LinksToJobs)
+                        .then(embed => {
+                            channel.send({ embeds: [embed] });
+                        });
                     });
-
-                // const newMessage = data.join().replace(",", "\n\n");
-                // discordMessage.reply(newMessage);
-            });
+        }
     }
+
 }

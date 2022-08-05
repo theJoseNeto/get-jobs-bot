@@ -14,18 +14,21 @@ class Scrapper {
             await this.gotoPage("https://www.linkedin.com/jobs/");
             await this.searchJobs(job, locale)
             await this.getListJobs()
-                .then(results => resolve(results))
+                .then(async results => {
+                    await this.createHyperLink(results)
+                        .then(hLinks => resolve(hLinks));
+                })
                 .finally(() => this.browser.close());
 
-            });
+        });
     }
 
     launchBrowser = async () => {
 
         this.browser = await puppeteer.launch({
-            executablePath: "~/usr/bin/chromium-browser",
-            headless: true,
-            args: ['--no-sandbox','--disable-setuid-sandbox']
+            // executablePath: "~/usr/bin/chromium-browser",
+            headless: true, // false to development mode
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
     }
 
@@ -62,7 +65,9 @@ class Scrapper {
 
             links.forEach(async (link, index) => {
                 link = await (await link.getProperty("href")).jsonValue();
+
                 jobs.push(link);
+
                 if (index === links.length - 1) {
                     resolve(jobs);
                 }
@@ -70,15 +75,24 @@ class Scrapper {
         });
     }
 
-    // redirectToSearchPage = async (jobNameValue, JobLocaleValue) => {
-    //     await this.page.waitForSelector(".authwall-join-form__title").then(
-    //         async elem => {
-    //             if (elem) {
-    //                 await this.scrapper()
-    //             }
-    //         }
-    //     );
-    // }
+    createHyperLink = links => {
+        const titles = []
+        return new Promise((resolve, reject) => {
+            for (let link of links) {
+                const jobName = link.split("view/")[1].split("?")[0].replace("at", ".Empresa:").split("-");
+                jobName.pop();
+                const jobNameFormated = jobName.join(' ');
+
+                titles.push(`[${jobNameFormated}](${link})`);
+                if (titles.length === links.length) {
+                    resolve(titles)
+                    break;
+                };
+            }
+        })
+
+    }
+
 }
 
 module.exports = Scrapper;
