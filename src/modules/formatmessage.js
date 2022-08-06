@@ -3,7 +3,7 @@ require('dotenv').config();
 const checkListOfTechnologies = tech => {
 
     let isValidTech = false;
-    const technologiesList = ["javascript", "nodejs", "react", "python", "java", "php", "c#", "c++", "typeScript", "ruby","c", "swift", "r", "objective-c", "shell", "scala", "go", "powerShell", "kotlin", "rust", "perl", "dart"]
+    const technologiesList = ["javascript", "nodejs", "react", "python", "java", "php", "c#", "c++", "typeScript", "ruby","c", "swift", "r", "objective-c", "shell", "scala", "go", "powerShell", "kotlin", "rust", "perl", "dart", "flutter"]
 
     for (let itemListOfTechs of technologiesList) {
         if(itemListOfTechs === tech) {
