@@ -11,6 +11,7 @@ exports.injectLinksIntoEmbedMessages = async links => {
         .setFooter({text: "Este projeto não tem nada haver com assuntos relacionados a política, é apenas uma piada ruim. ", iconURL:"https://avatars.githubusercontent.com/u/59847667?v=4"})
 
     for (let link of links){ 
+        if(jobCounter === 6) break;
         fields.push({ name: `Resultado ${jobCounter += 1}`, value: link, inline: false}); 
     }
     for (let field of fields) embed.addFields(field);
