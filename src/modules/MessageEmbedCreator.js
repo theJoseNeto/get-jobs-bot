@@ -12,7 +12,7 @@ exports.injectLinksIntoEmbedMessages = async links => {
 
     for (let link of links){ 
         if(jobCounter === 6) break;
-        fields.push({ name: `Resultado ${jobCounter += 1}`, value: link, inline: false}); 
+        fields.push({ name: "ﾠ", value: link, inline: false}); 
     }
     for (let field of fields) embed.addFields(field);
 
