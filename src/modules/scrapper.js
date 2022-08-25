@@ -79,7 +79,7 @@ createHyperLink = links => {
     let count = 0;
     return new Promise((resolve, reject) => {
         for (let link of links) {
-            titles.push(`[Vaga número ${count +=1}](${link})`);
+            titles.push(`[Veja clicando aqui](${link})`);
             if (titles.length === links.length) {
                 resolve(titles)
                 break;
